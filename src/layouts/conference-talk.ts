@@ -1,0 +1,88 @@
+import { C } from '../brand';
+import type { LayoutDef } from '../model';
+import { at, background, badge, graphic, logo, skyline, speakers, text, wave } from './parts';
+
+/** nor(DEV):con session card: purple-multiplied photo, skyline, wave, logo and big title. */
+export const conferenceTalk: LayoutDef = {
+  id: 'ndc-talk',
+  name: 'nor(DEV):con — Talk',
+  description: 'Conference session card with logo, title, optional speakers, badge and tech logo.',
+  brand: 'nordevcon',
+  components: [
+    background(),
+    skyline(),
+    graphic(),
+    speakers({ defaults: { inFrontOfWave: true } }),
+    wave(),
+    logo(),
+    badge(),
+    text({
+      id: 'title',
+      label: 'Title',
+      hint: 'Talk title',
+      multiline: true,
+      defaults: { text: 'Angular Reimagined', color: C.White, opacity: 0.8, shadow: true },
+    }),
+    text({
+      id: 'subtitle',
+      label: 'Subtitle',
+      hint: 'with **Speaker Name**',
+      optional: true,
+      enabled: false,
+      multiline: true,
+      defaults: { text: 'with **Speaker Name**', weight: 400, color: C.White, opacity: 0.9, shadow: true },
+    }),
+  ],
+  placements: {
+    landscape: {
+      skyline: at([0, 0.18, 1, 0.68]),
+      graphic: at([0.58, 0.26, 0.22, 0.34], { align: 'center', valign: 'middle' }),
+      speakers: at([0.3, 0.52, 0.68, 0.38], { align: 'center' }),
+      wave: at([0, 0.79, 1, 0.21]),
+      logo: at([0.026, 0.06, 0.32, 0.09], { valign: 'top' }),
+      badge: at([0.55, 0.045, 0.42, 0.15], { align: 'right', valign: 'top', size: 9 }),
+      title: at([0.41, 0.11, 0.55, 0.5], { align: 'right', size: 12, minSize: 5, below: 'badge', gap: 2 }),
+      subtitle: at([0.41, 0.4, 0.55, 0.2], { align: 'right', size: 5, minSize: 3, below: 'title', gap: 1 }),
+    },
+    banner: {
+      skyline: at([0.3, 0.05, 0.7, 0.85]),
+      graphic: at([0.62, 0.15, 0.14, 0.55], { align: 'center', valign: 'middle' }),
+      speakers: at([0.66, 0.12, 0.32, 0.88], { align: 'right' }),
+      wave: at([0, 0.8, 1, 0.2]),
+      logo: at([0.025, 0.09, 0.25, 0.2], { valign: 'top' }),
+      badge: at([0.42, 0.08, 0.2, 0.25], { align: 'right', valign: 'top', size: 13 }),
+      title: at([0.025, 0.38, 0.6, 0.4], { align: 'left', size: 22, minSize: 10, maxLines: 2 }),
+      subtitle: at([0.025, 0.6, 0.6, 0.18], { align: 'left', size: 10, minSize: 6, maxLines: 1, below: 'title', gap: 1 }),
+    },
+    square: {
+      skyline: at([0, 0.2, 1, 0.68]),
+      graphic: at([0.55, 0.42, 0.4, 0.25], { align: 'center', valign: 'middle' }),
+      speakers: at([0.04, 0.48, 0.92, 0.44], { align: 'center' }),
+      wave: at([0, 0.86, 1, 0.14]),
+      logo: at([0.05, 0.05, 0.5, 0.07], { valign: 'top' }),
+      badge: at([0.55, 0.04, 0.41, 0.1], { align: 'right', valign: 'top', size: 7 }),
+      title: at([0.05, 0.16, 0.9, 0.3], { align: 'left', size: 11, minSize: 5 }),
+      subtitle: at([0.05, 0.4, 0.9, 0.12], { align: 'left', size: 5, minSize: 3, below: 'title', gap: 1 }),
+    },
+    portrait: {
+      skyline: at([0, 0.25, 1, 0.65]),
+      graphic: at([0.55, 0.45, 0.4, 0.2], { align: 'center', valign: 'middle' }),
+      speakers: at([0.04, 0.5, 0.92, 0.42], { align: 'center' }),
+      wave: at([0, 0.88, 1, 0.12]),
+      logo: at([0.05, 0.045, 0.55, 0.06], { valign: 'top' }),
+      badge: at([0.6, 0.04, 0.36, 0.08], { align: 'right', valign: 'top', size: 7 }),
+      title: at([0.05, 0.15, 0.9, 0.3], { align: 'left', size: 12, minSize: 5 }),
+      subtitle: at([0.05, 0.4, 0.9, 0.12], { align: 'left', size: 5.5, minSize: 3, below: 'title', gap: 1 }),
+    },
+    tall: {
+      skyline: at([0, 0.3, 1, 0.6]),
+      graphic: at([0.3, 0.4, 0.4, 0.15], { align: 'center', valign: 'middle' }),
+      speakers: at([0.04, 0.52, 0.92, 0.38], { align: 'center' }),
+      wave: at([0, 0.9, 1, 0.1]),
+      logo: at([0.08, 0.1, 0.84, 0.06], { align: 'center', valign: 'top' }),
+      badge: at([0.08, 0.18, 0.84, 0.06], { align: 'center', valign: 'top', size: 7 }),
+      title: at([0.08, 0.25, 0.84, 0.25], { align: 'center', size: 13, minSize: 6 }),
+      subtitle: at([0.08, 0.42, 0.84, 0.12], { align: 'center', size: 6, minSize: 3, below: 'title', gap: 1.5 }),
+    },
+  },
+};

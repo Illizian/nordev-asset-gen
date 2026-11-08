@@ -1,0 +1,6 @@
+node_modules
+dist
+public/bg-removal
+examples
+.claude
+.git

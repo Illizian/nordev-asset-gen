@@ -1,0 +1,92 @@
+import { C } from '../brand';
+import type { LayoutDef } from '../model';
+import { at, background, badge, panel, prepend, speakers, text, wave } from './parts';
+
+/** nor.DEV monthly meetup: blurred photo, frosted panel with lockup + talk, speaker cut-out. */
+export const meetupEvent: LayoutDef = {
+  id: 'nordev-meetup',
+  name: 'nor.DEV — Meetup',
+  description: 'Monthly meetup card: blurred background, frosted panel, talk title and speaker cut-out.',
+  brand: 'nordev',
+  components: [
+    background({ id: 'background', label: 'Background', defaults: { blur: 22, tintStrength: 0.75, darken: 0.25 } }),
+    speakers(),
+    wave(),
+    prepend(),
+    text({
+      id: 'title',
+      label: 'Title',
+      multiline: true,
+      defaults: { text: 'To AI or Not to AI', color: C.White },
+    }),
+    text({
+      id: 'subtitle',
+      label: 'Subtitle',
+      optional: true,
+      enabled: true,
+      multiline: true,
+      hint: 'Use **bold** for names',
+      defaults: { text: 'Reflections by a (formerly) AI-sceptic engineering manager', weight: 300, color: C.White },
+    }),
+    text({
+      id: 'details',
+      label: 'Date & venue',
+      optional: true,
+      enabled: false,
+      hint: 'Tue 12 Nov · 6:30pm · Venue',
+      defaults: { text: 'Tue 12 Nov · 6:30pm · The Maids Head Hotel', weight: 700, color: C.Coral },
+    }),
+    panel({ id: 'panel', label: 'Frosted panel', wraps: ['prepend', 'title', 'subtitle', 'details'] }),
+    badge({ defaults: { text: 'Workshop', background: C.Coral, borderColor: 'transparent' } }),
+  ],
+  placements: {
+    landscape: {
+      speakers: at([0.6, 0.33, 0.38, 0.67], { align: 'right' }),
+      wave: at([0, 0.76, 1, 0.24]),
+      prepend: at([0.075, 0.14, 0.6, 0.08], { size: 6 }),
+      title: at([0.075, 0.25, 0.68, 0.2], { size: 7.5, minSize: 4, below: 'prepend', gap: 4 }),
+      subtitle: at([0.075, 0.36, 0.66, 0.3], { size: 6.5, minSize: 3.5, below: 'title', gap: 0.5 }),
+      details: at([0.075, 0.5, 0.66, 0.1], { size: 4, minSize: 2.5, maxLines: 1, below: 'subtitle', gap: 2 }),
+      badge: at([0.6, 0.05, 0.37, 0.12], { align: 'right', size: 5 }),
+    },
+    banner: {
+      speakers: at([0.72, 0.08, 0.26, 0.92], { align: 'right' }),
+      wave: at([0, 0.78, 1, 0.22]),
+      prepend: at([0.035, 0.1, 0.5, 0.14], { size: 10 }),
+      title: at([0.035, 0.32, 0.62, 0.28], { size: 15, minSize: 8, maxLines: 2, below: 'prepend', gap: 5 }),
+      subtitle: at([0.035, 0.55, 0.62, 0.22], { size: 10, minSize: 6, maxLines: 1, below: 'title', gap: 1 }),
+      details: at([0.035, 0.7, 0.62, 0.1], { size: 7, minSize: 5, maxLines: 1, below: 'subtitle', gap: 2 }),
+      badge: at([0.5, 0.06, 0.2, 0.2], { align: 'right', size: 9 }),
+    },
+    square: {
+      speakers: at([0, 0.47, 0.5, 0.53], { align: 'left' }),
+      wave: at([0, 0.78, 1, 0.22]),
+      prepend: at([0.06, 0.1, 0.88, 0.07], { align: 'right', size: 6 }),
+      title: at([0.06, 0.22, 0.88, 0.16], { align: 'right', size: 8, minSize: 4, below: 'prepend', gap: 4 }),
+      subtitle: at([0.2, 0.36, 0.74, 0.32], { align: 'right', size: 5.5, minSize: 3, below: 'title', gap: 1.5 }),
+      details: at([0.3, 0.6, 0.64, 0.08], { align: 'right', size: 3.6, minSize: 2.5, maxLines: 2, below: 'subtitle', gap: 2 }),
+      badge: at([0.06, 0.04, 0.88, 0.07], { align: 'left', size: 4 }),
+      panel: at([0, 0, 0, 0], { hidden: true }),
+    },
+    portrait: {
+      speakers: at([0, 0.52, 0.6, 0.48], { align: 'left' }),
+      wave: at([0, 0.8, 1, 0.2]),
+      prepend: at([0.06, 0.08, 0.88, 0.06], { align: 'right', size: 6 }),
+      title: at([0.06, 0.18, 0.88, 0.18], { align: 'right', size: 8.5, minSize: 4, below: 'prepend', gap: 4 }),
+      subtitle: at([0.2, 0.32, 0.74, 0.3], { align: 'right', size: 6, minSize: 3, below: 'title', gap: 1.5 }),
+      details: at([0.3, 0.55, 0.64, 0.08], { align: 'right', size: 4, minSize: 2.5, maxLines: 2, below: 'subtitle', gap: 2 }),
+      badge: at([0.06, 0.03, 0.88, 0.05], { align: 'left', size: 4 }),
+      panel: at([0, 0, 0, 0], { hidden: true }),
+    },
+    tall: {
+      speakers: at([0.1, 0.55, 0.8, 0.45], { align: 'center' }),
+      wave: at([0, 0.85, 1, 0.15]),
+      prepend: at([0.08, 0.12, 0.84, 0.05], { align: 'center', size: 7 }),
+      title: at([0.08, 0.2, 0.84, 0.15], { align: 'center', size: 10, minSize: 5, below: 'prepend', gap: 5 }),
+      subtitle: at([0.08, 0.32, 0.84, 0.2], { align: 'center', size: 6.5, minSize: 3.5, below: 'title', gap: 2 }),
+      details: at([0.08, 0.45, 0.84, 0.06], { align: 'center', size: 4.5, minSize: 3, maxLines: 2, below: 'subtitle', gap: 3 }),
+      badge: at([0.08, 0.06, 0.84, 0.04], { align: 'center', size: 4.5 }),
+      panel: at([0, 0, 0, 0], { hidden: true }),
+    },
+  },
+};
