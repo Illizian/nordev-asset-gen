@@ -16,6 +16,25 @@ export function App() {
   const [exporting, setExporting] = useState(false);
   const [restore, setRestore] = useState<{ savedAt: number; doc: Doc } | null>(null);
 
+  // The app is a fixed full-viewport layout; the page itself must never scroll. Browsers can still
+  // scroll an overflow:hidden root (focus, scrollIntoView, find-in-page), so snap it back.
+  useEffect(() => {
+    const reset = (e: Event) => {
+      if (window.scrollX || window.scrollY) window.scrollTo(0, 0);
+      const t = e.target;
+      if (t instanceof HTMLElement && (t.scrollTop || t.scrollLeft)) {
+        const s = getComputedStyle(t);
+        if (s.overflowX === 'hidden' && s.overflowY === 'hidden') t.scrollTo(0, 0);
+      }
+    };
+    window.addEventListener('scroll', reset);
+    document.addEventListener('scroll', reset, true);
+    return () => {
+      window.removeEventListener('scroll', reset);
+      document.removeEventListener('scroll', reset, true);
+    };
+  }, []);
+
   // Offer to restore the last session (autosaved in IndexedDB).
   useEffect(() => {
     loadAutosave().then((a) => a && setRestore(a));

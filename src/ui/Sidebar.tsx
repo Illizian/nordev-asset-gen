@@ -40,6 +40,20 @@ export function Sidebar() {
   );
 }
 
+/** Scroll `el` into view inside its nearest scrollable ancestor only. */
+function scrollWithinParent(el: HTMLElement) {
+  let p = el.parentElement;
+  while (p && !/(auto|scroll)/.test(getComputedStyle(p).overflowY)) p = p.parentElement;
+  if (!p) return;
+  const pr = p.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  const pad = 8;
+  let delta = 0;
+  if (er.top < pr.top + pad) delta = er.top - pr.top - pad;
+  else if (er.bottom > pr.bottom - pad) delta = Math.min(er.bottom - pr.bottom + pad, er.top - pr.top - pad);
+  if (delta) p.scrollBy({ top: delta, behavior: 'smooth' });
+}
+
 function ComponentCard({ spec }: { spec: ComponentSpec }) {
   const enabled = useApp((s) => s.doc.components[spec.id]?.enabled ?? false);
   const selected = useApp((s) => s.selectedId === spec.id);
@@ -48,7 +62,8 @@ function ComponentCard({ spec }: { spec: ComponentSpec }) {
   useEffect(() => {
     if (selected && ref.current) {
       ref.current.open = true;
-      ref.current.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      // Not scrollIntoView: that also scrolls overflow:hidden ancestors (incl. the page itself).
+      scrollWithinParent(ref.current);
     }
   }, [selected]);
 
